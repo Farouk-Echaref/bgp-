@@ -7,6 +7,18 @@ This project focuses on **network simulation and configuration** using **BGP EVP
 
 ---
 
+## What is OSPF?
+### **Open Shortest Path First (OSPF)** 
+
+- OSPF, short for Open Shortest Path First, is a dynamic routing protocol commonly used in large-scale IP networks. It functions by determining the shortest path to route data packets between routers. OSPF calculates this path based on various metrics such as link bandwidth, delay, and cost.
+At its heart, OSPF is a routing protocol built for the Internet Protocol (IP) networks. It operates within an Autonomous System (AS) — a collection of IP networks and routers under the control of one entity that presents a common routing policy to the Internet.
+
+📖 **References:** 
+
+- 📺 [What is OSPF and why do we need it?](https://www.fs.com/blog/what-is-ospf-and-why-do-we-need-it-1861.html)
+
+- 📺 [OSPF Explained](https://www.youtube.com/watch?v=kfvJ8QVJscc&ab_channel=CertBros)
+
 ## What is BGP?
 ### **Border Gateway Protocol (BGP)** – A Path Vector Routing Protocol
 
@@ -46,6 +58,7 @@ This project focuses on **network simulation and configuration** using **BGP EVP
 - 📺 [GNS3 Demo](https://www.youtube.com/watch?v=Ibe3hgP8gCA&ab_channel=DavidBombal)
 
 #### **FRRouting (FRR) Demo**
+- 📺 [FRR Routing Site definition](https://frrouting.org/)
 - 📺 [FRR Routing Demo](https://www.youtube.com/watch?v=D4nk5VSUelg&ab_channel=AhmadNadeem)
 
 #### **Install GNS3 on Linux Mint**
