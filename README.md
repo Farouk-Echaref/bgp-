@@ -27,3 +27,6 @@ port: 3080 tcp
 - make frr routing image.
 
 - after constructing those images using dockerfiles, we are going to build them so we can use them later using gns3, check the shell script in the confs folder in part 1.
+
+- after constructing the two docker images:
+![alt text](frr_routes_busy_alpine_docker_images.png)
