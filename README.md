@@ -23,3 +23,7 @@ server path: /usr/bin/gns3server
 hostbinding: localhost
 port: 3080 tcp
 
+- make busybox docker image
+- make frr routing image.
+
+- after constructing those images using dockerfiles, we are going to build them so we can use them later using gns3, check the shell script in the confs folder in part 1.
