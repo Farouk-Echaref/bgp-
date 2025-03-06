@@ -40,6 +40,11 @@ This project focuses on **network simulation and configuration** using **BGP EVP
 ## Project Breakdown
 
 ### **Part 1: Setting Up GNS3 and FRRouting**
+
+#### **GNS3 Docs**
+- 📺 [GNS3 Docs](https://docs.gns3.com/docs/getting-started/your-first-gns3-topology)
+- 📺 [GNS3 Demo](https://www.youtube.com/watch?v=Ibe3hgP8gCA&ab_channel=DavidBombal)
+
 #### **FRRouting (FRR) Demo**
 - 📺 [FRR Routing Demo](https://www.youtube.com/watch?v=D4nk5VSUelg&ab_channel=AhmadNadeem)
 
