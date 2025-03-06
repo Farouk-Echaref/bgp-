@@ -30,3 +30,8 @@ port: 3080 tcp
 
 - after constructing the two docker images:
 ![alt text](frr_routes_busy_alpine_docker_images.png)
+
+- now we gonna construct our router based on the frr routing image and host based on the alpine image, in gns3, so gns3 will be configured with docker env.
+ill put the descriptive video
+
+
