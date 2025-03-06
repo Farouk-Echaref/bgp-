@@ -57,4 +57,4 @@ EXPOSE 179 2601 2604 2608
 # --------------------------------------------
 # - Starts all FRR daemons when the container runs.
 # - `tail -f /dev/null` ensures that the container stays active when used in GNS3.
-CMD /usr/lib/frr/frrinit.sh start && tail -f /dev/null
+CMD /usr/lib/frr/frrinit.sh start && sleep 5 && vtysh
