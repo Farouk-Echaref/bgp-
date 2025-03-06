@@ -6,10 +6,10 @@ FROM frrouting/frr:latest
 # --------------------------------------------
 # - Enables the "integrated vtysh" mode, allowing all FRR daemons to be controlled from one CLI.
 # - Modifies the FRR configuration file to enable essential routing protocols:
-#   ✅ BGP  (Border Gateway Protocol)
-#   ✅ OSPF (Open Shortest Path First)
-#   ✅ IS-IS (Intermediate System to Intermediate System)
-#   ✅ Zebra (FRR's core routing manager)
+#   BGP  (Border Gateway Protocol)
+#   OSPF (Open Shortest Path First)
+#   IS-IS (Intermediate System to Intermediate System)
+#   Zebra (FRR's core routing manager)
 RUN echo 'service integrated-vtysh-config' > /etc/frr/vtysh.conf && \
     sed -i \
     -e 's/bgpd=no/bgpd=yes/g' \
