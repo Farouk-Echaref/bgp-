@@ -51,10 +51,3 @@ RUN chown frr:frr /etc/frr/*
 # - `2604`  → OSPF communication
 # - `2608`  → IS-IS communication
 EXPOSE 179 2601 2604 2608
-
-# --------------------------------------------
-# 🔹 Start FRRouting Services and Keep the Container Running
-# --------------------------------------------
-# - Starts all FRR daemons when the container runs.
-# - `tail -f /dev/null` ensures that the container stays active when used in GNS3.
-CMD /usr/lib/frr/frrinit.sh start && sleep 5 && vtysh
