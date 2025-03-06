@@ -1,32 +1,61 @@
 # Use the official FRRouting image, which already includes BGP, OSPF, and IS-IS support.
 FROM frrouting/frr:latest
 
-# Ensures that BGP, OSPF, IS-IS, and Zebra are enabled in the FRRouting configuration.
+# --------------------------------------------
+# 🔹 Configure FRRouting (FRR) Services
+# --------------------------------------------
+# - Enables the "integrated vtysh" mode, allowing all FRR daemons to be controlled from one CLI.
+# - Modifies the FRR configuration file to enable essential routing protocols:
+#   ✅ BGP  (Border Gateway Protocol)
+#   ✅ OSPF (Open Shortest Path First)
+#   ✅ IS-IS (Intermediate System to Intermediate System)
+#   ✅ Zebra (FRR's core routing manager)
 RUN echo 'service integrated-vtysh-config' > /etc/frr/vtysh.conf && \
     sed -i \
-    -e 's/bgpd=no/bgpd=yes/g' \      # Enable BGP daemon
-    -e 's/ospfd=no/ospfd=yes/g' \    # Enable OSPF daemon
-    -e 's/isisd=no/isisd=yes/g' \    # Enable IS-IS daemon
-    -e 's/zebra=no/zebra=yes/g' \    # Enable Zebra (routing manager)
+    -e 's/bgpd=no/bgpd=yes/g' \
+    -e 's/ospfd=no/ospfd=yes/g' \
+    -e 's/isisd=no/isisd=yes/g' \
+    -e 's/zebra=no/zebra=yes/g' \
     /etc/frr/daemons
 
-# Install additional useful networking tools
+# --------------------------------------------
+# 🔹 Install Additional Useful Networking Tools
+# --------------------------------------------
+# The following packages are installed for better network debugging and management:
+# - `iproute2`       → Used to view and modify routing tables
+# - `iputils-ping`   → Provides the `ping` command for testing connectivity
+# - `busybox`        → Lightweight UNIX utilities for troubleshooting
+# - `nano` & `vim`   → Text editors for modifying config files
+# - `net-tools`      → Includes commands like `ifconfig`, `netstat`
 RUN apt update && apt install -y \
-    iproute2 \        # For managing network interfaces
-    iputils-ping \    # For basic connectivity testing
-    busybox \         # Lightweight Unix utilities
-    nano \            # Text editor for quick edits
-    vim \             # Text editor for general edits
-    net-tools         # Includes ifconfig, netstat, etc.
+    iproute2 \
+    iputils-ping \
+    busybox \
+    nano \
+    vim \
+    net-tools
 
-# Ensure proper permissions for FRR
+# --------------------------------------------
+# 🔹 Ensure Proper Permissions for FRR Configuration Files
+# --------------------------------------------
+# - Modifies file permissions to prevent access issues in FRR.
 RUN chmod 777 /etc/*
 RUN chmod 777 /etc/frr/
 RUN chown frr:frr /etc/frr/*
 
-# Expose necessary FRR ports 
-# 179 for BGP, 2601 for zebra CLI, 2604 for OSPF CLI, 2608 ISIS CLI
+# --------------------------------------------
+# 🔹 Expose Required Ports for Routing Protocols
+# --------------------------------------------
+# These ports are used by different FRR services:
+# - `179`   → BGP communication between routers
+# - `2601`  → Zebra CLI management
+# - `2604`  → OSPF communication
+# - `2608`  → IS-IS communication
 EXPOSE 179 2601 2604 2608
 
-# Start FRRouting and keep the container running
+# --------------------------------------------
+# 🔹 Start FRRouting Services and Keep the Container Running
+# --------------------------------------------
+# - Starts all FRR daemons when the container runs.
+# - `tail -f /dev/null` ensures that the container stays active when used in GNS3.
 CMD /usr/lib/frr/frrinit.sh start && tail -f /dev/null
