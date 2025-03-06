@@ -39,7 +39,6 @@ RUN apk update && apk add --no-cache \
 # 🔹 Ensure Proper Permissions for FRR Configuration Files
 # --------------------------------------------
 # - Modifies file permissions to prevent access issues in FRR.
-RUN chmod 777 /etc/*
 RUN chmod 777 /etc/frr/
 RUN chown frr:frr /etc/frr/*
 
