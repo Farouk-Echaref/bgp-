@@ -72,5 +72,7 @@ Now, we will:
 - **Create a host based on the Alpine image**
 - **Configure GNS3 to work with Docker**
 
-📺 **Video Tutorial:** [GNS3 Docker Configuration](https://github.com/user-attachments/assets/7f70fdba-7bc8-47a9-9401-93ec3f0ed3ed)
+📺 **Video Tutorial:** 
+
+https://github.com/user-attachments/assets/7f70fdba-7bc8-47a9-9401-93ec3f0ed3ed
 
