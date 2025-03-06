@@ -1,4 +1,4 @@
-# bgp-
+# bgp-AS
 
 ![alt text](bgp-simplified.svg)
 
@@ -61,5 +61,10 @@ port: 3080 tcp
 
 - now we gonna construct our router based on the frr routing image and host based on the alpine image, in gns3, so gns3 will be configured with docker env.
 ill put the descriptive video
+
+
+
+https://github.com/user-attachments/assets/7f70fdba-7bc8-47a9-9401-93ec3f0ed3ed
+
 
 
