@@ -27,9 +27,9 @@ RUN echo 'service integrated-vtysh-config' > /etc/frr/vtysh.conf && \
 # - `busybox`        → Lightweight UNIX utilities for troubleshooting
 # - `nano` & `vim`   → Text editors for modifying config files
 # - `net-tools`      → Includes commands like `ifconfig`, `netstat`
-RUN apt update && apt install -y \
+RUN apk update && apk add --no-cache \
     iproute2 \
-    iputils-ping \
+    iputils \
     busybox \
     nano \
     vim \
