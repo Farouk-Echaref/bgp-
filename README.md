@@ -7,6 +7,37 @@ This project focuses on **network simulation and configuration** using **BGP EVP
 
 ---
 
+## What is ISIS (the protocol not the state)?
+
+### **Intermediate System to Intermediate System (IS-IS) Routing Protocol**  
+
+IS-IS (Intermediate System to Intermediate System) is a **link-state interior gateway protocol (IGP)** used for routing within a single administrative domain, such as an ISP or enterprise network. It is similar to OSPF, as both use **Dijkstra’s Shortest Path First (SPF) algorithm** to determine the best paths.  
+
+#### **Key Features**  
+- **Originally designed for OSI networks** by Digital Equipment Corporation (DEC), later adapted for IP as **Integrated IS-IS**.  
+- **Hierarchical design** with two levels:  
+  - **Level-1 (L1)** – Intra-area routing.  
+  - **Level-2 (L2)** – Inter-area (backbone) routing.  
+  - **L1/L2 routers** bridge areas.  
+- **Operates at Layer 2**, avoiding IP-based transport and making it more secure than OSPF.  
+- **Terminology differences from OSPF**:  
+  - **Router** = **Intermediate System (IS)**  
+  - **Host** = **End System (ES)**  
+  - **Router ID** = **Network Entity Title (NET)** (NSAP format).  
+- **Highly scalable**, making it the preferred choice for **large service provider networks**.  
+
+IS-IS remains a **robust and efficient alternative to OSPF**, especially for **large-scale deployments** where scalability and protocol efficiency are critical.
+
+📖 **References:** 
+
+- 📺 [ISIS from Wiki?](https://en.wikipedia.org/wiki/IS-IS)
+- 📺 [ISIS Intro and Basics](https://networklessons.com/is-is/introduction-to-is-is)
+- 📺 [ISIS User Guide](https://www.juniper.net/documentation/us/en/software/junos/is-is/topics/concept/is-is-routing-overview.html)
+- 📺 [ISIS vs OSPF](https://momcanfixanything.com/ospf-vs-isis/)
+- 📺 [ISIS vs OSPF 2](https://www.geeksforgeeks.org/difference-between-ospf-and-is-is/)
+
+
+
 ## What is OSPF?
 
 ![OSPF in simple terms](OSPF_simplified.jpg)
