@@ -264,6 +264,7 @@ Since VXLAN segments are **isolated**, **a router (or Layer 3 switch)** is neede
 
 ## **9. Additional Learning Resources**  
 📺 **VXLAN Overview** – [YouTube](https://www.youtube.com/watch?v=Jv0IqaM9KOs&ab_channel=telecomTech)  
+📺 **VXLAN Components** – [YouTube](https://www.youtube.com/watch?v=bcYtFYVmmgM&t=232s&ab_channel=telecomTech)  
 📺 **VXLAN Explained** – [NetworkLessons](https://networklessons.com/cisco/ccnp-encor-350-401/introduction-to-virtual-extensible-lan-vxlan)  
 📺 **VXLAN vs VLAN** – [CBTNUGGETS](https://www.cbtnuggets.com/blog/technology/networking/vlan-vs-vxlan)  
 
