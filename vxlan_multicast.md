@@ -81,7 +81,7 @@ In **dynamic multicast**, VTEPs **automatically discover which VTEPs need multic
 ---
 
 ## **6. Additional Learning Resources**  
-📺 **VXLAN Multicast Explained** – [YouTube](https://www.youtube.com/watch?v=qLCHxmcw0Hk)  
+📺 **VXLAN Multicast Explained** – [YouTube](https://www.youtube.com/watch?v=Je93J8D9rL4&ab_channel=telecomTech)  
 📖 **RFC 7348 - VXLAN Standard** – [IETF](https://datatracker.ietf.org/doc/html/rfc7348)  
 📖 **Cisco VXLAN Multicast Guide** – [Cisco Docs](https://www.cisco.com/c/en/us/td/docs/switches/datacenter/nexus9000/sw/6-x/vxlan/configuration/guide/b_Cisco_Nexus_9000_Series_NX-OS_VXLAN_Configuration_Guide/b_Cisco_Nexus_9000_Series_NX-OS_VXLAN_Configuration_Guide_chapter_010.html)  
 
