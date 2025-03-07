@@ -106,7 +106,7 @@ At its heart, OSPF is a routing protocol built for the Internet Protocol (IP) ne
 
 ![alt text](vxlan-vtep-hardware.png)
 
-- Please refer to the docs named **vlan_vxlan.md**
+- Please refer to the docs named **vlan_vxlan.md** and **vxlan_multicast.md**
 
 ---
 
