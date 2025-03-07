@@ -17,6 +17,7 @@ Both distance vector and link state protocols create a routing table within the 
 
 📖 **References:** 
 
+- 📺 [Network Layers](https://www.cbtnuggets.com/blog/technology/networking/l1-l2-vs-l3-whats-the-difference)
 - 📺 [Routing : D and S](https://www.techtarget.com/searchnetworking/answer/Static-and-dynamic-routing)
 - 📺 [Dynamic Routing vs Static Routing](https://www.youtube.com/watch?v=da_63I7MuPo&ab_channel=NETWORKINGPLUS)
 
