@@ -123,9 +123,10 @@ If an HR PC (192.168.10.100) **pings** an IT PC (192.168.20.50), the packet **mu
 ---
 
 ## **6. Resources for Learning More**  
-- **Video: VLANs Explained** – [YouTube](https://www.youtube.com/watch?v=bG5hOqJ4Sqg)  
-- **Video: Inter-VLAN Routing** – [YouTube](https://www.youtube.com/watch?v=43zG5HHdNkU)  
-- **Cisco VLAN Configuration Guide** – [Cisco Docs](https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst3750x_3560x/software/release/15-0_2_se/configuration/guide/3750x_cg/swvlans.html)  
+- **Video: VLANs Explained** – [YouTube](https://www.youtube.com/watch?v=yX_1Yit53Lc&ab_channel=ITDose)  
+- **Blog: VLANs Explained** – [Extnoc](https://www.extnoc.com/learn/networking/what-is-virtual-lan#:~:text=The%20main%20advantage%20of%20using,lines%20for%20each%20user%20group.)  
+- **VLAN and Subnets** – [Reddit](https://www.reddit.com/r/ccna/comments/1abozkk/is_vlan_a_replacement_for_using_multiple_switches/)  
+- **Blog: Switched and VLANs** – [Netbeez](https://netbeez.net/blog/introduction-to-network-switches-and-vlans/)  
 
 ---
 
