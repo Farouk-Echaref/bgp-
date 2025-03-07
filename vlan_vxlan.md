@@ -263,8 +263,7 @@ Since VXLAN segments are **isolated**, **a router (or Layer 3 switch)** is neede
 ---
 
 ## **9. Additional Learning Resources**  
-📺 **VXLAN Overview** – [YouTube](https://www.youtube.com/watch?v=X7nntBvFSb0)  
-📺 **VXLAN and BGP EVPN Explained** – [YouTube](https://www.youtube.com/watch?v=veO4mt2-Yak)  
-📖 **Cisco VXLAN Guide** – [Cisco Docs](https://www.cisco.com/c/en/us/td/docs/switches/datacenter/sw/7_x/nx-os/interfaces/configuration/guide/b-Cisco-Nexus-9000-Series-NX-OS-Interfaces-Configuration-Guide-7x/b-Cisco-Nexus-9000-Series-NX-OS-Interfaces-Configuration-Guide-7x_chapter_0101.html)  
+📺 **VXLAN Overview** – [YouTube](https://www.youtube.com/watch?v=Jv0IqaM9KOs&ab_channel=telecomTech)  
+📺 **VXLAN Explained** – [NetworkLessons](https://networklessons.com/cisco/ccnp-encor-350-401/introduction-to-virtual-extensible-lan-vxlan)  
 
 ---
