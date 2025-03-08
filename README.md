@@ -157,6 +157,9 @@ https://github.com/user-attachments/assets/7f70fdba-7bc8-47a9-9401-93ec3f0ed3ed
 
 
 ### **Part 2: Setting Up VXLAN with GNS3**
+- vxlan demo:
+https://www.youtube.com/watch?v=u1ka-S6F9UI&ab_channel=AhmadNadeem
+
  - things to study in depth:
  stp - network links usage, l2 over l3 encapsulation over udp, vtep, spine and leaf archi
 
