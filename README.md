@@ -165,7 +165,11 @@ https://github.com/user-attachments/assets/7f70fdba-7bc8-47a9-9401-93ec3f0ed3ed
 
  If it was a real network, Switch_wil could just be an IP network (e.g., the internet, a data center fabric, or a routed backbone).
 
- - bridges in linux :
+ - network confs in linux:
+ https://docs.kernel.org/networking/vxlan.html
+ https://vincent.bernat.ch/en/blog/2017-vxlan-linux
+ https://lpc.events/event/4/contributions/456/attachments/250/434/Vxlan_and_multicast_roopa_prabhu_LPC2019.pdf
+ https://unix.stackexchange.com/questions/25872/how-can-i-know-if-ip-multicast-is-enabled
+ https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/main/advanced-linux-networking/linux-vxlan.md
  https://www.zenarmor.com/docs/linux-tutorials/how-to-configure-network-bridge-on-linux
 
- 
