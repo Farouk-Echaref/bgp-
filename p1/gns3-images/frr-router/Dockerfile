@@ -30,7 +30,6 @@ RUN echo 'service integrated-vtysh-config' > /etc/frr/vtysh.conf && \
 RUN apk update && apk add --no-cache \
     iproute2 \
     iputils \
-    busybox \
     nano \
     vim \
     net-tools
