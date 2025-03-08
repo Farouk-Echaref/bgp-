@@ -176,3 +176,8 @@ https://www.youtube.com/watch?v=u1ka-S6F9UI&ab_channel=AhmadNadeem
  https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/main/advanced-linux-networking/linux-vxlan.md
  https://www.zenarmor.com/docs/linux-tutorials/how-to-configure-network-bridge-on-linux
 
+- choices of e0, e1 conventions, e0 for routers or L3 switches, e1 for hosts
+
+- bridges:
+https://developers.redhat.com/articles/2022/04/06/introduction-linux-bridging-commands-and-features
+https://www.baeldung.com/linux/bridging-network-interfaces
