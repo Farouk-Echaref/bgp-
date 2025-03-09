@@ -172,7 +172,7 @@ https://www.youtube.com/watch?v=u1ka-S6F9UI&ab_channel=AhmadNadeem
  - vxlan demo with gns3:
  https://www.youtube.com/watch?v=u1ka-S6F9UI&ab_channel=AhmadNadeem
 
- If it was a real network, Switch_wil could just be an IP network (e.g., the internet, a data center fabric, or a routed backbone).
+
 
  - network confs in linux:
  https://docs.kernel.org/networking/vxlan.html
@@ -187,6 +187,8 @@ https://www.youtube.com/watch?v=u1ka-S6F9UI&ab_channel=AhmadNadeem
 - bridges:
 https://developers.redhat.com/articles/2022/04/06/introduction-linux-bridging-commands-and-features
 https://www.baeldung.com/linux/bridging-network-interfaces
+
+-A network bridge is a device that operates at the Link Layer and passes traffic across networks based on MAC addresses. As a result, a network bridge is also known as a device that operates at the Layer 2 level. It constructs tables of MAC addresses, using the information it gathers about what hosts are connected to each network, and bases its judgments about which packets to forward on those tables. A Linux host computer may make use of a hardware bridge in order to simulate the functionality of a software bridge.
 
 - vxlan conf resource:
 https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/main/advanced-linux-networking/linux-vxlan.md
