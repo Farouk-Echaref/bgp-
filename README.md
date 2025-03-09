@@ -155,6 +155,12 @@ Now, we will:
 
 https://github.com/user-attachments/assets/7f70fdba-7bc8-47a9-9401-93ec3f0ed3ed
 
+📺 **Conf setup:** 
+
+![alt text](p1_confs.png) 
+
+![alt text](p1_illustration.png)
+
 
 ### **Part 2: Setting Up VXLAN with GNS3**
 - vxlan demo:
