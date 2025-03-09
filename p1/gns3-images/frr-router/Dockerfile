@@ -32,6 +32,7 @@ RUN apk update && apk add --no-cache \
     iputils \
     nano \
     vim \
+    netcat-openbsd \
     net-tools
 
 # --------------------------------------------
