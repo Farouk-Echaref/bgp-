@@ -181,3 +181,8 @@ https://www.youtube.com/watch?v=u1ka-S6F9UI&ab_channel=AhmadNadeem
 - bridges:
 https://developers.redhat.com/articles/2022/04/06/introduction-linux-bridging-commands-and-features
 https://www.baeldung.com/linux/bridging-network-interfaces
+
+- vxlan conf resource:
+https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/main/advanced-linux-networking/linux-vxlan.md
+
+![alt text](proto_p2.png)
