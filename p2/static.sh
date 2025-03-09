@@ -15,10 +15,6 @@ ip link set dev vxlan10 up            # Activate VXLAN interface
 brctl addif br0 eth1
 brctl addif br0 vxlan10
 
-# Display info
-ip addr show eth0
-ip -d link show vxlan10
-
 # Configuration for router_fech-cha-2
 ip link add br0 type bridge
 ip link set dev br0 up
