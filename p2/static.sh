@@ -1,4 +1,4 @@
-#!/bin/bash
+# execute the commands in the bash
 
 # Configuration for router_fech-cha-1
 ip link add br0 type bridge  # Create a bridge interface

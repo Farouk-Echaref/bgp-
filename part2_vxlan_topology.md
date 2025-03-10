@@ -230,4 +230,98 @@ Each host is **assigned an IP within the overlay network**:
 
 ---
 
-This explanation + script should fully clarify how VXLAN works in your topology! 🚀 Let me know if you need more details. 😊
+### **Explanation of the Multicast VXLAN Configuration in Your Topology**  
+
+This configuration sets up **VXLAN** between `router_fech-cha-1` and `router_fech-cha-2`, enabling **Layer 2 (L2) connectivity** between `host_fech-cha-1` and `host_fech-cha-2` over a **Layer 3 (L3) network**.  
+Unlike the previous setup, this configuration **uses multicast VXLAN** instead of a static unicast VXLAN tunnel.  
+
+---
+
+### **1️⃣ Explanation for `router_fech-cha-1`**  
+
+1. **Create a bridge interface (`br0`)**  
+   ```bash
+   ip link add br0 type bridge
+   ip link set dev br0 up
+   ```  
+   - `br0` is a **Linux bridge** that connects the **local host interface (`eth1`)** and the **VXLAN interface (`vxlan10`)**.  
+   - Frames from either side (host or VXLAN tunnel) are forwarded via `br0`.  
+
+2. **Assign an IP address to `eth0` (the underlay interface)**  
+   ```bash
+   ip addr add 10.1.1.1/24 dev eth0
+   ```  
+   - This IP (`10.1.1.1`) is part of the **underlay network** used for VXLAN transport.  
+
+3. **Create a VXLAN interface (`vxlan10`) using multicast**  
+   ```bash
+   ip link add name vxlan10 type vxlan id 10 dev eth0 group 239.1.1.1 dstport 4789
+   ```  
+   - `vxlan10`: The VXLAN tunnel interface.  
+   - `id 10`: The **VXLAN Network Identifier (VNI)**, similar to a VLAN ID.  
+   - `dev eth0`: Uses `eth0` as the transport interface.  
+   - `group 239.1.1.1`: **Multicast group** for VXLAN peer discovery.  
+   - `dstport 4789`: **Standard VXLAN UDP port**.  
+
+4. **Assign an IP address to `vxlan10` (the overlay network)**  
+   ```bash
+   ip addr add 20.1.1.1/24 dev vxlan10
+   ```  
+   - This IP (`20.1.1.1`) is used in the **overlay network** for L2 communication.  
+
+5. **Attach `eth1` (host-facing interface) and `vxlan10` to the bridge (`br0`)**  
+   ```bash
+   brctl addif br0 eth1
+   brctl addif br0 vxlan10
+   ```  
+   - `eth1`: Connects to `host_fech-cha-1`.  
+   - `vxlan10`: Connects to the VXLAN tunnel.  
+   - Traffic between `host_fech-cha-1` and `vxlan10` is **bridged**, simulating a LAN.  
+
+6. **Enable the VXLAN interface**  
+   ```bash
+   ip link set dev vxlan10 up
+   ```  
+   - Ensures the VXLAN tunnel is active.  
+
+---
+
+### **2️⃣ Explanation for `router_fech-cha-2`**  
+
+Configuration is **similar** to `router_fech-cha-1`, but with **mirrored IPs**:  
+
+- Assigns `10.1.1.2/24` to `eth0` (underlay network).  
+- Creates `vxlan10` with:  
+  - `group 239.1.1.1` (same multicast group).  
+  - Uses `eth0` as the transport.  
+- Assigns `20.1.1.2/24` to `vxlan10`.  
+- Bridges `vxlan10` and `eth1`.  
+
+This ensures **both routers can dynamically discover each other** using multicast.  
+
+---
+
+### **3️⃣ Explanation for Hosts**  
+
+Each **host is assigned an IP within the overlay network**:  
+
+- `host_fech-cha-1`: `30.1.1.1/24` on `eth1`  
+- `host_fech-cha-2`: `30.1.1.2/24` on `eth1`  
+- These **L2 endpoints** communicate transparently over VXLAN.  
+
+---
+
+## **🔍 Key Differences from Static VXLAN**  
+
+| Feature | **Static VXLAN (Previous Config)** | **Multicast VXLAN (This Config)** |
+|---------|----------------------------------|---------------------------------|
+| VXLAN Type | **Unicast** | **Multicast** |
+| Remote IP | **Explicitly defined (`remote 10.1.1.2`)** | **Uses multicast group (`group 239.1.1.1`)** |
+| Forwarding Mode | **Point-to-point** | **Multi-point (Multiple devices can join dynamically)** |
+| Best Use Case | **Direct VXLAN tunnel between two routers** | **Multi-access VXLAN for multiple routers** |
+
+🔹 **Why use multicast VXLAN?**  
+- **Unicast VXLAN requires manual configuration** of each remote peer.  
+- **Multicast VXLAN automatically discovers peers**, making it **more scalable** for multiple routers.  
+
+---
