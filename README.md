@@ -196,4 +196,14 @@ https://www.baeldung.com/linux/bridging-network-interfaces
 - vxlan conf resource:
 https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/main/advanced-linux-networking/linux-vxlan.md
 
+/proc/net # bridge fdb show dev vxlan10
+1e:3c:a0:99:aa:69 vlan 1 master br0 permanent
+1e:3c:a0:99:aa:69 master br0 permanent
+/proc/net # 
+ Forwarding Database (FDB)
+
+ ip route show
+ 
+
+
 ![alt text](proto_p2.png)
