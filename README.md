@@ -207,3 +207,11 @@ https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/m
 
 
 ![alt text](proto_p2.png)
+
+### **Part3 :**
+
+useful resources: 
+https://learn.srlinux.dev/tutorials/l2evpn/evpn/
+https://vincent.bernat.ch/en/blog/2017-vxlan-bgp-evpn
+https://docs.frrouting.org/en/latest/evpn.html#linux-interface-configuration
+https://docs.nvidia.com/networking-ethernet-software/cumulus-linux-44/Network-Virtualization/Ethernet-Virtual-Private-Network-EVPN/Basic-Configuration/
