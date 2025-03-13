@@ -24,6 +24,8 @@
 
 ## **1. Understanding the Network Architecture**
 
+![alt text](spine_leaf_vs_three_tier_architecture-f.png)
+
 ### **Spine-Leaf Topology**
 The topology shown is a **spine-leaf network**, commonly used in **data centers** to provide high performance and scalability.  
 
@@ -37,6 +39,12 @@ The topology shown is a **spine-leaf network**, commonly used in **data centers*
   - These act as Layer 2 and Layer 3 forwarding devices.  
   - They are connected to hosts and also to each other via the spine.  
   - They **run OSPF for underlay** and **BGP EVPN for VXLAN overlay**.  
+
+- **Useful resource:**
+    - https://www.youtube.com/watch?v=xjc7WLBb-nI
+    - https://www.techtarget.com/searchdatacenter/definition/Leaf-spine
+    - `spine_leaf.md` in the same folder
+
 
 ### **Routing and Forwarding Mechanisms**
 1. **Underlay Routing - OSPF**  
