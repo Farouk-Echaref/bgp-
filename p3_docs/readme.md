@@ -29,7 +29,9 @@
 ### **Spine-Leaf Topology**
 The topology shown is a **spine-leaf network**, commonly used in **data centers** to provide high performance and scalability.  
 
-- **Spine (Router Reflector - _wil-1_):**  
+- **Spine (Router Reflector - _wil-1_):**
+  - RR: https://networklessons.com/bgp/bgp-route-reflector
+  - RR: https://www.packetcoders.io/what-is-a-bgp-route-reflector/
   - This acts as the **central point for BGP route reflection**.  
   - It ensures all leaf switches get the necessary routing information.  
   - Uses **OSPF for internal routing** and **BGP (EVPN) for VXLAN overlay**.  
@@ -216,5 +218,3 @@ This setup **extends Layer 2 networks over Layer 3** using **VXLAN + BGP EVPN**.
 3. **VXLAN for Layer 2 overlay**
 4. **EVPN for BGP MAC/IP learning**
 5. **Linux networking commands (`ip link`, `brctl`)**
-
-Would you like me to help with troubleshooting or verification commands? 🚀

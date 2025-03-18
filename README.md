@@ -166,8 +166,18 @@ https://github.com/user-attachments/assets/7f70fdba-7bc8-47a9-9401-93ec3f0ed3ed
 
 ![alt text](part2_topology.png)
 
+- vxlan playlist:
+https://youtube.com/playlist?list=PLmVr8r1kmMm1LucO47Ch5CDJWgBb2X6YE&si=54bhG9CLS4l-frHd
+
 - vxlan demo:
 https://www.youtube.com/watch?v=u1ka-S6F9UI&ab_channel=AhmadNadeem
+
+
+- vxlan encapsulation and communication:
+https://www.youtube.com/watch?v=FgZtkyInHQg&list=PLmVr8r1kmMm1LucO47Ch5CDJWgBb2X6YE&index=4
+
+- vxlan multicast:
+https://www.youtube.com/watch?v=Je93J8D9rL4&list=PLmVr8r1kmMm1LucO47Ch5CDJWgBb2X6YE&index=6
 
  - things to study in depth:
  stp in the context of vlan (vxlan as solution)- network links usage, l2 over l3 encapsulation over udp, vtep, spine and leaf archi
