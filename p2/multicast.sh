@@ -15,7 +15,7 @@ done
 
 # Configuration for router_amiski-1
 docker exec -it $DOCKER_CONTAINER_ROUTER1 ip addr add 10.1.1.1/24 dev eth0
-docker exec -it $DOCKER_CONTAINER_ROUTER1 ip link add vxlan10 type vxlan id 10 dev eth0 remote 10.1.1.2 local 10.1.1.1 dstport 4789
+docker exec -it $DOCKER_CONTAINER_ROUTER1 ip link add vxlan10 type vxlan id 10 dev eth0  group 239.1.1.1 dstport 4789
 docker exec -it $DOCKER_CONTAINER_ROUTER1 brctl addbr br0
 docker exec -it $DOCKER_CONTAINER_ROUTER1 brctl addif br0 vxlan10
 docker exec -it $DOCKER_CONTAINER_ROUTER1 brctl stp br0 off
@@ -26,7 +26,7 @@ docker exec -it $DOCKER_CONTAINER_ROUTER1 brctl addif br0 eth1
 
 # Configuration for router_amiski-2
 docker exec -it $DOCKER_CONTAINER_ROUTER2 ip addr add 10.1.1.2/24 dev eth0
-docker exec -it $DOCKER_CONTAINER_ROUTER2 ip link add vxlan10 type vxlan id 10 dev eth0 remote 10.1.1.1 local 10.1.1.2 dstport 4789
+docker exec -it $DOCKER_CONTAINER_ROUTER2 ip link add vxlan10 type vxlan id 10 dev eth0 group 239.1.1.1 dstport 4789
 docker exec -it $DOCKER_CONTAINER_ROUTER2 brctl addbr br0
 docker exec -it $DOCKER_CONTAINER_ROUTER2 brctl addif br0 vxlan10
 docker exec -it $DOCKER_CONTAINER_ROUTER2 brctl stp br0 off
