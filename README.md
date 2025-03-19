@@ -220,6 +220,16 @@ https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/m
 
 ### **Part3 :**
 
+- BGP Explained:
+https://aws.amazon.com/what-is/border-gateway-protocol/
+
+- bgp playlist resource:
+https://www.youtube.com/playlist?list=PLmVr8r1kmMm0ncoc9L6bFICpuNbo7Tumu
+
+
+- bgp best path:
+https://deploy.equinix.com/blog/bgp-attributes-and-how-bgp-selects-the-best-route/
+
 useful resources: 
 https://learn.srlinux.dev/tutorials/l2evpn/evpn/
 https://vincent.bernat.ch/en/blog/2017-vxlan-bgp-evpn
