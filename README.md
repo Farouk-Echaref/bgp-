@@ -220,6 +220,9 @@ https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/m
 
 ### **Part3 :**
 
+- EVPN-VXLAN:
+https://www.youtube.com/watch?v=cdvstTm467k
+
 - VXLAN Control Plane:
 https://blogs.cisco.com/perspectives/a-summary-of-cisco-vxlan-control-planes-multicast-unicast-mp-bgp-evpn-2
 
