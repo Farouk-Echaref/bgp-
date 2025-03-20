@@ -223,6 +223,9 @@ https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/m
 - VXLAN Control Plane:
 https://blogs.cisco.com/perspectives/a-summary-of-cisco-vxlan-control-planes-multicast-unicast-mp-bgp-evpn-2
 
+- VXLAN bgp evpn control plane solution:
+https://www.youtube.com/watch?v=5lXsc8eLYAw&list=PLmVr8r1kmMm1LucO47Ch5CDJWgBb2X6YE&index=10
+
 - BGP Explained:
 https://aws.amazon.com/what-is/border-gateway-protocol/
 
@@ -237,6 +240,12 @@ https://www.youtube.com/watch?v=9-9Tw8yIqPM&list=PLmVr8r1kmMm0ncoc9L6bFICpuNbo7T
 
 - bgp best path:
 https://deploy.equinix.com/blog/bgp-attributes-and-how-bgp-selects-the-best-route/
+
+- bgp and loopbacks:
+https://www.reddit.com/r/fortinet/comments/11rr6cb/why_is_it_so_popular_to_use_loopback_interfaces/
+
+- config demo:
+https://www.youtube.com/watch?v=Ek7kFDwUJBM
 
 useful resources: 
 https://learn.srlinux.dev/tutorials/l2evpn/evpn/
