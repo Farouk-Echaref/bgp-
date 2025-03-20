@@ -247,6 +247,9 @@ https://www.reddit.com/r/fortinet/comments/11rr6cb/why_is_it_so_popular_to_use_l
 - config demo:
 https://www.youtube.com/watch?v=Ek7kFDwUJBM
 
+- loopback interface
+https://www.youtube.com/watch?v=pZho6OQYYxI
+
 useful resources: 
 https://learn.srlinux.dev/tutorials/l2evpn/evpn/
 https://vincent.bernat.ch/en/blog/2017-vxlan-bgp-evpn
