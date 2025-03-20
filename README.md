@@ -226,6 +226,11 @@ https://aws.amazon.com/what-is/border-gateway-protocol/
 - bgp playlist resource:
 https://www.youtube.com/playlist?list=PLmVr8r1kmMm0ncoc9L6bFICpuNbo7Tumu
 
+- bgp RR explained:
+https://www.youtube.com/watch?v=9-9Tw8yIqPM&list=PLmVr8r1kmMm0ncoc9L6bFICpuNbo7Tumu&index=24
+
+- bgp RR config:
+https://www.youtube.com/watch?v=9-9Tw8yIqPM&list=PLmVr8r1kmMm0ncoc9L6bFICpuNbo7Tumu&index=24
 
 - bgp best path:
 https://deploy.equinix.com/blog/bgp-attributes-and-how-bgp-selects-the-best-route/
