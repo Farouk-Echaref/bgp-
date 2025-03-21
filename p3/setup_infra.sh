@@ -51,21 +51,59 @@ exit
 
 # Since all routers are part of the same AS (Autonomous System) 1, iBGP is used for exchanging routing information
 # from cisco: https://www.cisco.com/c/en/us/td/docs/ios/iproute_bgp/command/reference/irg_book/irg_bgp1.html
+# for FRR: https://www.watchguard.com/help/docs/help-center/en-US/Content/en-US/Fireware/dynamicrouting/bgp_commands_frr.html
 # enable BGP (iBGP - internal BGP) with AS number 1 (same AS across all routers in this setup)
 router bgp 1
-
+ # resource: https://networklessons.com/bgp/bgp-peer-groups-on-cisco-ios
+ # https://is5com.com/HTML%20User%20Manuals/Config_Guid_1.12.05/BGP%20Config%20Guide/HTML5/CM-BGP-iBiome-1.12.05-EN/iMX_Common/Configuration_Guides/DITA_Topics/BGP/3_15_peer_groups.html
  # Define iBGP peer group for dynamic neighbors
+ # Peer groups allow you to configure multiple neighbors with the same settings, reducing configuration repetition.
+ # Instead of defining each neighbor separately, a peer group applies the same configuration to all iBGP neighbors.
  neighbor ibgp peer-group
+
+ # In iBGP, all peers must be in the same AS (unlike eBGP, where peers have different AS numbers)
  neighbor ibgp remote-as 1  # Since this is iBGP, all routers have the same AS
+
+ # why: https://forum.networklessons.com/t/the-use-of-the-update-source-command/7418
+ # why2: https://learningnetwork.cisco.com/s/question/0D53i00000qgWsZCAU/update-source-loopback
+ # Loopback interfaces never go down, unlike physical interfaces.
+ # If a physical link fails, the router can still reach the loopback via another path (as long as OSPF is running).
+ # Ensures BGP sessions remain stable even if an interface goes down.
+ # Without this command, BGP would use the physical interface (e.g., eth0 or vxlan10), which could go down!
  neighbor ibgp update-source lo  # Use loopback interface for stability
 
  # Listen for dynamic BGP neighbors from leaf routers in the specified range
+ # Automatically discovers new BGP neighbors in 1.1.1.0/29 using bgp listen range
+ # Any router with an IP in 1.1.1.0/29 that tries to establish BGP will automatically become a neighbor.
+ # These neighbors are automatically assigned to the ibgp peer group.
+ # Why use bgp listen range?
+ # Instead of manually configuring each neighbor (neighbor 1.1.1.2 remote-as 1, etc.), this automatically detects neighbors in the given subnet.
+ # Useful in dynamic setups where new routers might be added.
  bgp listen range 1.1.1.0/29 peer-group ibgp
 exit
 
 # Configure EVPN (Ethernet VPN) within iBGP for VXLAN overlay
+# resource: https://networklessons.com/vxlan/vxlan-mp-bgp-evpn-l2-vni
+# from cisco: https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst9400/software/release/16-10/configuration_guide/lyr2/b_1610_lyr2_9400_cg/configuring_vxlan_bgp_evpn.pdf
+# for frr: https://vincent.bernat.ch/en/blog/2017-vxlan-bgp-evpn
+# from FRR docs: https://docs.frrouting.org/en/latest/evpn.html
+# This enables EVPN as a BGP address family.
+# EVPN (Ethernet VPN) is used in VXLAN networks for:
+# Layer 2 extension over an IP network (bridging VLANs across data centers).
+# Layer 3 forwarding (routing between VXLAN segments).
+# MAC and IP mobility (handling dynamic changes in endpoint locations).
 address-family l2vpn evpn
+ # This activates EVPN for the ibgp peer group.
+ # BGP will now exchange EVPN routes with iBGP neighbors.
+ # Why activate EVPN for iBGP?
+
+ # VXLAN needs a control plane to learn MAC addresses and routes dynamically.
+ # Instead of relying on flood-and-learn (like traditional VXLAN), BGP EVPN distributes MAC/IP information efficiently
  neighbor ibgp activate  # Activate EVPN for iBGP peer group
+ # resource frr: https://docs.frrouting.org/en/latest/bgp.html#route-reflector
+ # In iBGP, routers normally don't forward routes learned from one iBGP peer to another (to prevent loops).
+ # A route reflector allows iBGP routers to share routes, avoiding the need for a full mesh. 
+ # Without this, every leaf router would have to be manually connected to every other router
  neighbor ibgp route-reflector-client  # Act as route reflector for leafs
 exit-address-family
 exit
