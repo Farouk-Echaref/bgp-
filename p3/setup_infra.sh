@@ -1,107 +1,106 @@
-# spine RR Config
+# Spine RR Configuration (Route Reflector)
 
-# Enter vtysh mode
+# Enter vtysh mode to configure the router
 vtysh
 
-# Config mode
+# Enter configuration mode
 conf t
+
+# Set hostname for identification
 hostname router_fech-cha-1
 
-# Turn off IPv6 forwarding
+# Disable IPv6 forwarding (not required for this setup)
 no ipv6 forwarding
 
-# Setup eth0
+# Configure physical interfaces with IP addresses (point-to-point links for OSPF and iBGP communication)
 interface eth0
-ip address 10.1.1.1/30
+ ip address 10.1.1.1/30  # Link to leaf router_fech-cha-2
 exit
 
-# Setup eth1
 interface eth1
-ip address 10.1.1.5/30
+ ip address 10.1.1.5/30  # Link to leaf router_fech-cha-3
 exit
 
-# Setup eth2
 interface eth2
-ip address 10.1.1.9/30
+ ip address 10.1.1.9/30  # Link to leaf router_fech-cha-4
 exit
 
-# Setup loobpack interface
+# Configure loopback interface (used for iBGP peering and stability in routing)
 interface lo
-ip address 1.1.1.1/32
+ ip address 1.1.1.1/32  # Unique identifier for this router
 exit
 
-# Setup iBGP with AS number 1
+# Configure iBGP (internal BGP) with AS number 1 (same AS across all routers in this setup)
 router bgp 1
 
-# Create an iBGP peering group named ibgp
-neighbor ibgp peer-group
+ # Define iBGP peer group for dynamic neighbors
+ neighbor ibgp peer-group
+ neighbor ibgp remote-as 1  # Since this is iBGP, all routers have the same AS
+ neighbor ibgp update-source lo  # Use loopback interface for stability
 
-# Assign this peering group to AS 1 (same AS number cs we are in iBGP)
-neighbor ibgp remote-as 1
-
-# Neighbors will communicate through loobpack interface
-neighbor ibgp update-source lo
-
-# Setup iBGP dynamic neighbors listen on specified range and add them to our ibgp peering group
-# per the subject: Our leafs (VTEP) will be configured to have dynamic relations
-bgp listen range 1.1.1.0/29 peer-group ibgp
+ # Listen for dynamic BGP neighbors from leaf routers in the specified range
+ bgp listen range 1.1.1.0/29 peer-group ibgp
 exit
 
-# Configure a neighbor in peer group DYNAMIC as Route Reflector client
+# Configure EVPN (Ethernet VPN) within iBGP for VXLAN overlay
 address-family l2vpn evpn
-neighbor ibgp activate
-neighbor ibgp route-reflector-client
+ neighbor ibgp activate  # Activate EVPN for iBGP peer group
+ neighbor ibgp route-reflector-client  # Act as route reflector for leafs
 exit-address-family
 exit
 
-# Enable routing process OSPF on all IP networks on area 0
+# Configure OSPF (Open Shortest Path First) for underlay network routing
 router ospf
-network 0.0.0.0/0 area 0
+ network 0.0.0.0/0 area 0  # Advertise all connected interfaces in OSPF area 0
 exit
 
-# Leaf 2
+
+# Leaf Configuration (router_fech-cha-2 as an example, others are similar)
+
 ip link add br0 type bridge
 ip link set dev br0 up
 ip link add vxlan10 type vxlan id 10 dstport 4789
 ip link set dev vxlan10 up
 brctl addif br0 vxlan10
 brctl addif br0 eth1
-
 vtysh
 
 conf t
 
 hostname router_fech-cha-2
-no ipv6 forwarding
+no ipv6 forwarding  # Disable IPv6 forwarding
 
+# Configure physical interface eth0 with IP and OSPF
 interface eth0
-ip address 10.1.1.2/30
-ip ospf area 0
+ ip address 10.1.1.2/30  # Connected to router_fech-cha-1
+ ip ospf area 0  # Enable OSPF on this interface
+exit
 
-exit 
-
+# Configure loopback interface for iBGP peering
 interface lo
-ip address 1.1.1.2/32
-ip ospf area 0
-
+ ip address 1.1.1.2/32  # Unique identifier for this router
+ ip ospf area 0  # Advertise in OSPF
 exit
 
+# Configure iBGP peering with the route reflector (spine)
 router bgp 1
-neighbor 1.1.1.1 remote-as 1
-neighbor 1.1.1.1 update-source lo
+ neighbor 1.1.1.1 remote-as 1  # Connect to RR in AS 1
+ neighbor 1.1.1.1 update-source lo  # Use loopback for stability
+exit
 
-exit 
-
+# Enable EVPN for VXLAN overlays
 address-family l2vpn evpn
-neighbor 1.1.1.1 activate
-advertise-all-vni
+ neighbor 1.1.1.1 activate  # Activate EVPN with RR
+ advertise-all-vni  # Advertise all VXLAN Network Identifiers (VNIs)
 exit-address-family
-
 exit
 
+# Configure OSPF for underlay routing
 router ospf
-
 exit
 
-# host 1
+
+# Host Configuration (hostrouter_fech-cha-1)
+
+# Assign IP address to host interface (connected to leaf router)
 ip address add 20.1.1.1/24 dev eth1
