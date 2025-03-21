@@ -1,21 +1,39 @@
 # Spine RR Configuration (Route Reflector)
 
+# cisco commands resources:
+# https://www.cisco.com/c/en/us/td/docs/routers/access/800M/software/800MSCG/routconf.html
+# https://www.netwrix.com/cisco-commands-cheat-sheet.html
+
+# cisco config support in frr
+# https://docs.frrouting.org/projects/dev-guide/en/latest/cli.html
+
 # Enter vtysh mode to configure the router
-# shell for FRR daemons => https://www.youtube.com/watch?v=_sQ0kXW5E0I&ab_channel=wezlwezl
+# shell for FRR daemons => provides a combined frontend to all FRR daemons in a single combined session
 vtysh
 
-# Enter configuration mode
+# Enter the config terminal mode in the privileged mode to enter the global configuration mode, and the user can modify the global configuration of the switch/router
+# resource: https://www.cisco.com/c/en/us/td/docs/wireless/mwam/user/guide/mwam1/CLI.pdf
+# resource: https://www.linkedin.com/pulse/cisco-switch-basic-configuration-cian-hu/
 conf t
 
 # Set hostname for identification
+# resource: https://www.cisco.com/E-Learning/bulk/public/tac/cim/cib/using_cisco_ios_software/cmdrefs/hostname.htm
 hostname router_fech-cha-1
 
 # Disable IPv6 forwarding (not required for this setup)
+# best practice for security and performance reasons
+# some services (e.g., systemd, kernel) might still generate IPv6 packets, and that adds load cs they will still be routed
+# If an attacker sends IPv6 packets (like rogue Router Advertisements), your router could accidentally forward them, creating a security risk.
 no ipv6 forwarding
 
 # Configure physical interfaces with IP addresses (point-to-point links for OSPF and iBGP communication)
+# from cisco : https://www.cisco.com/E-Learning/bulk/public/tac/cim/cib/using_cisco_ios_software/cmdrefs/interface.htm
 interface eth0
  ip address 10.1.1.1/30  # Link to leaf router_fech-cha-2
+ # unlike in cisco config, FRR on Linux does not require no shutdown for interfaces to be operational
+ # in linux (FRR) Interfaces are up unless explicitly disabled via ip link set ethX down.
+ # FRR relies on the Linux kernel for interface state
+ #no shutdown
 exit
 
 interface eth1
@@ -31,7 +49,9 @@ interface lo
  ip address 1.1.1.1/32  # Unique identifier for this router
 exit
 
-# Configure iBGP (internal BGP) with AS number 1 (same AS across all routers in this setup)
+# Since all routers are part of the same AS (Autonomous System) 1, iBGP is used for exchanging routing information
+# from cisco: https://www.cisco.com/c/en/us/td/docs/ios/iproute_bgp/command/reference/irg_book/irg_bgp1.html
+# enable BGP (iBGP - internal BGP) with AS number 1 (same AS across all routers in this setup)
 router bgp 1
 
  # Define iBGP peer group for dynamic neighbors
@@ -56,7 +76,7 @@ router ospf
 exit
 
 
-# Leaf Configuration (router_fech-cha-2 as an example, others are similar)
+# Leaf Configuration (router_fech-cha-2)
 
 ip link add br0 type bridge
 ip link set dev br0 up
@@ -101,7 +121,90 @@ router ospf
 exit
 
 
-# Host Configuration (hostrouter_fech-cha-1)
+# Leaf Configuration (router_fech-cha-3)
 
-# Assign IP address to host interface (connected to leaf router)
-ip address add 20.1.1.1/24 dev eth1
+ip link add br0 type bridge
+ip link set dev br0 up
+ip link add vxlan10 type vxlan id 10 dstport 4789
+ip link set dev vxlan10 up
+brctl addif br0 vxlan10
+brctl addif br0 eth0
+
+vtysh
+conf t
+hostname router_fech-cha-3
+no ipv6 forwarding
+
+interface eth1
+ip address 10.1.1.6/30
+ip ospf area 0
+exit
+
+interface lo
+ip address 1.1.1.3/32
+ip ospf area 0
+exit
+
+router bgp 1
+neighbor 1.1.1.1 remote-as 1
+neighbor 1.1.1.1 update-source lo
+exit
+
+address-family l2vpn evpn
+neighbor 1.1.1.1 activate
+advertise-all-vni
+exit-address-family
+exit
+
+router ospf
+exit
+
+# Leaf Configuration (router_fech-cha-4)
+
+ip link add br0 type bridge
+ip link set dev br0 up
+ip link add vxlan10 type vxlan id 10 dstport 4789
+ip link set dev vxlan10 up
+brctl addif br0 vxlan10
+brctl addif br0 eth0
+
+vtysh
+conf t
+hostname router_fech-cha-4
+no ipv6 forwarding
+
+interface eth2
+ip address 10.1.1.10/30
+ip ospf area 0
+exit
+
+interface lo
+ip address 1.1.1.4/32
+ip ospf area 0
+exit
+
+
+router bgp 1
+neighbor 1.1.1.1 remote-as 1
+neighbor 1.1.1.1 update-source lo
+exit
+
+address-family l2vpn evpn
+neighbor 1.1.1.1 activate
+advertise-all-vni
+exit-address-family
+exit
+
+router ospf
+exit
+
+
+
+# Assign IP address to hosts interfaces (connected to leaf router)
+
+# Host Configuration (host_fech-cha-1)
+ip addr add 20.1.1.1/24 dev eth1
+# Host Configuration (host_fech-cha-2)
+ip addr add 20.1.1.2/24 dev eth0
+# Host Configuration (host_fech-cha-3)
+ip addr add 20.1.1.3/24 dev eth0
