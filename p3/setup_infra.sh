@@ -1,6 +1,7 @@
 # Spine RR Configuration (Route Reflector)
 
 # Enter vtysh mode to configure the router
+# shell for FRR daemons => https://www.youtube.com/watch?v=_sQ0kXW5E0I&ab_channel=wezlwezl
 vtysh
 
 # Enter configuration mode

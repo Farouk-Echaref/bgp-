@@ -220,6 +220,77 @@ https://github.com/nehalineogi/azure-cross-solution-network-architectures/blob/m
 
 ### **Part3 :**
 
+
+### **Why Use `vtysh` Instead of Just `ip addr`?**
+---
+`vtysh` is a **unified CLI interface** for **FRRouting (FRR)**, a powerful open-source routing suite used for **dynamic routing protocols** like OSPF, BGP, and VXLAN. It provides a centralized way to configure network devices like a Cisco or Juniper router.
+
+On the other hand, `ip addr` (from `iproute2`) is used for **manual, static configurations** but does not support **dynamic routing**.
+
+---
+
+### **1. What `ip addr` Can Do vs. What `vtysh` Can Do**
+| Feature                | `ip addr` / `ip link` ❌ | `vtysh` (FRR) ✅ |
+|------------------------|-----------------------|-------------------|
+| Assign IP addresses    | ✅ `ip addr add`      | ✅ `interface eth0` → `ip address` |
+| Bring interfaces up/down | ✅ `ip link set up/down` | ✅ `shutdown/no shutdown` |
+| Configure VXLAN        | ❌ No direct support  | ✅ `interface vxlan10` |
+| Configure Loopback     | ✅ `ip addr add`      | ✅ `interface lo` |
+| Enable OSPF, BGP       | ❌ Not supported      | ✅ `router ospf/bgp` |
+| Manage Routing Tables  | ✅ `ip route` (static) | ✅ Dynamic via OSPF/BGP |
+
+🚀 **Key Takeaway:**  
+- `ip addr` can only **set static IPs** and does not support **routing protocols**.  
+- `vtysh` is used to configure **dynamic routing, VXLAN, and loopbacks** in one place.
+
+---
+
+### **2. Example: Configuring VXLAN with `vtysh` vs. `ip addr`**
+#### **Option 1: Using `ip addr` (Static, No OSPF)**
+```bash
+ip link add vxlan10 type vxlan id 10 dstport 4789 local 10.1.1.1
+ip link set vxlan10 up
+ip addr add 192.168.1.1/24 dev vxlan10
+```
+- **Limitations:**
+  - This does not support **dynamic discovery of VXLAN peers**.
+  - If a link goes down, VXLAN tunnels **do not automatically reroute**.
+
+#### **Option 2: Using `vtysh` (Dynamic, OSPF-enabled)**
+```bash
+vtysh
+configure terminal
+  interface vxlan10
+    vxlan id 10
+    vxlan local-tunnelip 1.1.1.1
+    vxlan remote 1.1.1.2
+    ip address 192.168.1.1/24
+exit
+router ospf
+  network 192.168.1.0/24 area 0
+exit
+write
+```
+✅ **Advantages of `vtysh`**:  
+- VXLAN is dynamically **discovered** via OSPF/BGP.  
+- Uses **loopback IPs (1.1.1.1)**, so the tunnel **does not break on link failure**.  
+- Supports **dynamic routing** (OSPF/BGP), **not just static IPs**.
+
+---
+
+### **3. Why Use `vtysh`?**
+| **Scenario**                        | **Why `vtysh`?** |
+|--------------------------------------|----------------|
+| You want **dynamic routing** (OSPF, BGP) | ✅ Supports OSPF/BGP |
+| You need **resilient VXLAN tunnels** | ✅ Uses loopbacks for stability |
+| Your topology has **multiple paths** | ✅ OSPF reroutes traffic |
+| You are configuring a **FRR-based router** | ✅ Unified CLI (like Cisco/Juniper) |
+| You just need to **set a static IP** | ❌ `ip addr` is enough |
+
+### **Conclusion**
+Use **`ip addr`** if you only need to assign static IPs.  
+Use **`vtysh` (FRR)** if you need **VXLAN, OSPF, BGP, or failover handling**.
+
 - EVPN-VXLAN:
 https://www.youtube.com/watch?v=cdvstTm467k
 
