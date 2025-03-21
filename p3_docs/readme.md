@@ -29,7 +29,7 @@
 ### **Spine-Leaf Topology**
 The topology shown is a **spine-leaf network**, commonly used in **data centers** to provide high performance and scalability.  
 
-- **Spine (Router Reflector - _wil-1_):**
+- **Spine (Router Reflector - fech-cha-1_):**
   - RR: https://networklessons.com/bgp/bgp-route-reflector
   - RR: https://www.packetcoders.io/what-is-a-bgp-route-reflector/
   - This acts as the **central point for BGP route reflection**.  
@@ -37,7 +37,7 @@ The topology shown is a **spine-leaf network**, commonly used in **data centers*
   - Uses **OSPF for internal routing** and **BGP (EVPN) for VXLAN overlay**.  
   - Connected to multiple leaf switches.  
 
-- **Leafs (_wil-2, wil-3, wil-4_):**  
+- **Leafs (fech-cha-2, fech-cha-3, fech-cha-4_):**  
   - These act as Layer 2 and Layer 3 forwarding devices.  
   - They are connected to hosts and also to each other via the spine.  
   - They **run OSPF for underlay** and **BGP EVPN for VXLAN overlay**.  
@@ -58,7 +58,7 @@ The topology shown is a **spine-leaf network**, commonly used in **data centers*
    - BGP (Border Gateway Protocol) is used with **EVPN (Ethernet VPN)**.  
    - Allows **VXLAN tunnels** to be established dynamically.  
    - Enables **Layer 2 and Layer 3 connectivity across multiple hosts** in different leaf switches.  
-   - Uses **Route Reflector** (_wil-1_) to avoid full-mesh BGP connections.  
+   - Uses **Route Reflector** (fech-cha-1_) to avoid full-mesh BGP connections.  
 
 3. **VXLAN - Extending Layer 2 Networks Over Layer 3**  
    - VXLAN allows **Layer 2 segments to be extended** over an IP network.  
@@ -101,7 +101,7 @@ To fully grasp this setup, you need to study:
 
 Now, let's go **line by line** through the configurations.
 
-### **Spine (_wil-1_) Configuration**
+### **Spine (fech-cha-1_) Configuration**
 ```sh
 vtysh
 conf t
@@ -122,14 +122,14 @@ interface eth1
  ip address 10.1.1.5/30
  ip ospf area 0
 ```
-- Similar for `eth1` (connected to `_wil-3_`).  
+- Similar for `eth1` (connected to `fech-cha-3_`).  
 
 ```sh
 interface eth2
  ip address 10.1.1.9/30
  ip ospf area 0
 ```
-- Same for `eth2` (connected to `_wil-4_`).  
+- Same for `eth2` (connected to `fech-cha-4_`).  
 
 ```sh
 interface lo
@@ -171,7 +171,7 @@ router ospf
 
 ---
 
-### **Leaf (_wil-2, wil-3, wil-4_) Configuration**
+### **Leaf (fech-cha-2, fech-cha-3, fech-cha-4_) Configuration**
 ```sh
 ip link add br0 type bridge
 ip link set dev br0 up
@@ -198,7 +198,7 @@ router bgp 1
  neighbor 1.1.1.1 remote-as 1
  neighbor 1.1.1.1 update-source lo
 ```
-- Connects to the **Route Reflector (_wil-1_)** using **loopback**.  
+- Connects to the **Route Reflector (fech-cha-1_)** using **loopback**.  
 
 ```sh
 address-family l2vpn evpn
