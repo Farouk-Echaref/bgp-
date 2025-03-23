@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# --------------------------------------------
+# 🔹 Configure Host 2 (host_fech-cha-2)
+# --------------------------------------------
+
+# Assign an IP to eth1 (Connects to VXLAN network)
+ip addr add 30.1.1.2/24 dev eth1
