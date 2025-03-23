@@ -1,0 +1,4 @@
+# Assign IP address to hosts interfaces (connected to leaf router)
+
+# Host Configuration (host_fech-cha-1)
+ip addr add 20.1.1.1/24 dev eth1

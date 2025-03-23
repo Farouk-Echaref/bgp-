@@ -1,0 +1,45 @@
+
+
+# Leaf Configuration (router_fech-cha-2)
+
+ip link add br0 type bridge
+ip link set dev br0 up
+ip link add vxlan10 type vxlan id 10 dstport 4789
+ip link set dev vxlan10 up
+brctl addif br0 vxlan10
+brctl addif br0 eth1
+vtysh
+
+conf t
+
+hostname router_fech-cha-2
+no ipv6 forwarding  # Disable IPv6 forwarding
+
+# Configure physical interface eth0 with IP and OSPF
+interface eth0
+ ip address 10.1.1.2/30  # Connected to router_fech-cha-1
+ ip ospf area 0  # Enable OSPF on this interface
+exit
+
+# Configure loopback interface for iBGP peering
+interface lo
+ ip address 1.1.1.2/32  # Unique identifier for this router
+ ip ospf area 0  # Advertise in OSPF
+exit
+
+# Configure iBGP peering with the route reflector (spine)
+router bgp 1
+ neighbor 1.1.1.1 remote-as 1  # Connect to RR in AS 1
+ neighbor 1.1.1.1 update-source lo  # Use loopback for stability
+
+
+# Enable EVPN for VXLAN overlays
+ address-family l2vpn evpn
+ neighbor 1.1.1.1 activate  # Activate EVPN with RR
+ advertise-all-vni  # Advertise all VXLAN Network Identifiers (VNIs)
+ exit-address-family
+exit
+
+# Configure OSPF for underlay routing
+router ospf
+exit

@@ -63,3 +63,10 @@ ip neigh show
 v=$(echo -n "hello world" | xxd -p)
 /bin/ping -p $v -s 11 -c 1 30.1.1.3
 
+# part3:
+
+- BGP's role is to distribute routing information to its peers.
+BGP EVPN is used to distribute MAC addresses to its peers.
+
+- RR: reduce the numbers of bgp peering, router distributes infos.
+
