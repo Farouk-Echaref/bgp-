@@ -80,7 +80,7 @@ router bgp 1
  # Instead of manually configuring each neighbor (neighbor 1.1.1.2 remote-as 1, etc.), this automatically detects neighbors in the given subnet.
  # Useful in dynamic setups where new routers might be added.
  bgp listen range 1.1.1.0/29 peer-group ibgp
-exit
+
 
 # Configure EVPN (Ethernet VPN) within iBGP for VXLAN overlay
 # resource: https://networklessons.com/vxlan/vxlan-mp-bgp-evpn-l2-vni
@@ -92,20 +92,20 @@ exit
 # Layer 2 extension over an IP network (bridging VLANs across data centers).
 # Layer 3 forwarding (routing between VXLAN segments).
 # MAC and IP mobility (handling dynamic changes in endpoint locations).
-address-family l2vpn evpn
+ address-family l2vpn evpn
  # This activates EVPN for the ibgp peer group.
  # BGP will now exchange EVPN routes with iBGP neighbors.
  # Why activate EVPN for iBGP?
 
  # VXLAN needs a control plane to learn MAC addresses and routes dynamically.
  # Instead of relying on flood-and-learn (like traditional VXLAN), BGP EVPN distributes MAC/IP information efficiently
- neighbor ibgp activate  # Activate EVPN for iBGP peer group
+  neighbor ibgp activate  # Activate EVPN for iBGP peer group
  # resource frr: https://docs.frrouting.org/en/latest/bgp.html#route-reflector
  # In iBGP, routers normally don't forward routes learned from one iBGP peer to another (to prevent loops).
  # A route reflector allows iBGP routers to share routes, avoiding the need for a full mesh. 
  # Without this, every leaf router would have to be manually connected to every other router
- neighbor ibgp route-reflector-client  # Act as route reflector for leafs
-exit-address-family
+  neighbor ibgp route-reflector-client  # Act as route reflector for leafs
+ exit-address-family
 exit
 
 # Configure OSPF (Open Shortest Path First) for underlay network routing
@@ -145,13 +145,13 @@ exit
 router bgp 1
  neighbor 1.1.1.1 remote-as 1  # Connect to RR in AS 1
  neighbor 1.1.1.1 update-source lo  # Use loopback for stability
-exit
+
 
 # Enable EVPN for VXLAN overlays
-address-family l2vpn evpn
+ address-family l2vpn evpn
  neighbor 1.1.1.1 activate  # Activate EVPN with RR
  advertise-all-vni  # Advertise all VXLAN Network Identifiers (VNIs)
-exit-address-family
+ exit-address-family
 exit
 
 # Configure OSPF for underlay routing
@@ -186,7 +186,7 @@ exit
 router bgp 1
 neighbor 1.1.1.1 remote-as 1
 neighbor 1.1.1.1 update-source lo
-exit
+
 
 address-family l2vpn evpn
 neighbor 1.1.1.1 activate
@@ -225,7 +225,7 @@ exit
 router bgp 1
 neighbor 1.1.1.1 remote-as 1
 neighbor 1.1.1.1 update-source lo
-exit
+
 
 address-family l2vpn evpn
 neighbor 1.1.1.1 activate
