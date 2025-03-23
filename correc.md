@@ -54,6 +54,9 @@ In short:
 - **VLAN** segments a LAN logically for better security and traffic management.
 - **VXLAN** extends VLANs over long distances, providing scalability and flexibility.
 
+- show arp:
+arp
+ip neigh show
 
 - test ping :
 
