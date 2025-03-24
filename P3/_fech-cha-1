@@ -1,4 +1,4 @@
-# Spine RR Configuration (Route Reflector)
+# Spine RR Configuration (Route Reflector fech-cha-1)
 
 # cisco commands resources:
 # https://www.cisco.com/c/en/us/td/docs/routers/access/800M/software/800MSCG/routconf.html
@@ -80,7 +80,6 @@ router bgp 1
  # Instead of manually configuring each neighbor (neighbor 1.1.1.2 remote-as 1, etc.), this automatically detects neighbors in the given subnet.
  # Useful in dynamic setups where new routers might be added.
  bgp listen range 1.1.1.0/29 peer-group ibgp
-
 
 # Configure EVPN (Ethernet VPN) within iBGP for VXLAN overlay
 # resource: https://networklessons.com/vxlan/vxlan-mp-bgp-evpn-l2-vni

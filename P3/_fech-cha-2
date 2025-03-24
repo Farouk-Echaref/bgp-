@@ -36,6 +36,7 @@ router bgp 1
 # Enable EVPN for VXLAN overlays
  address-family l2vpn evpn
  neighbor 1.1.1.1 activate  # Activate EVPN with RR
+ # from FRR docs: In order to enable EVPN for a BGP instance, we must use the command advertise-all-vni
  advertise-all-vni  # Advertise all VXLAN Network Identifiers (VNIs)
  exit-address-family
 exit
